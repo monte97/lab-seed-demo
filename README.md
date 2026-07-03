@@ -11,16 +11,22 @@ nasce gia' inizializzato.
 
 Ogni cartella e' un pacchetto esercizio:
 
-- `setup.sh` -- **entrypoint obbligatorio**. Eseguito una volta, a boot, dentro il
-  vcluster. File del pacchetto in `/workspace`; `KUBECONFIG` gia' puntato al
-  vcluster (admin sul proprio vcluster). `exit 0` = init ok.
-- `manifests/` -- YAML applicati da `setup.sh` (opzionale).
+- `setup.sh` -- **entrypoint obbligatorio**. Eseguito una volta, a boot. File del
+  pacchetto in `/workspace`. `exit 0` = init ok. L'ambiente dipende dal tipo di lab:
+  - **k8s** (`lab_env=k8s`): gira in un Job DENTRO il vcluster dello studente,
+    con `KUBECONFIG` gia' puntato al vcluster (admin). Applica manifest k8s.
+  - **linux** (`lab_env=linux`): gira DENTRO il Pod esercizio (`ubuntu:26.04` di
+    default), ambiente Linux puro, NIENTE `KUBECONFIG`. Prepara file/tool/scenario.
+- `manifests/` -- YAML applicati da `setup.sh` (opzionale, lab k8s).
+- `sizing.yaml` -- `cpu`/`memory` e opzionale `image` del Pod (opzionale).
 - `task.md` -- consegna per lo studente (opzionale).
 
 ## Esercizi
 
-- [`nginx-demo/`](nginx-demo/) -- deploya un nginx a 3 repliche (+ Service); il
-  lab parte con tutto gia' su.
+- [`nginx-demo/`](nginx-demo/) -- (lab k8s) deploya un nginx a 3 repliche (+ Service);
+  il lab parte con tutto gia' su.
+- [`linux-demo/`](linux-demo/) -- (lab linux) ambiente `ubuntu:26.04` minimale; il
+  terminale mostra una consegna demo (crea un file). Base per esercizi Linux.
 
 ## Come si aggancia
 

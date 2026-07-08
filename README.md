@@ -17,7 +17,11 @@ Ogni cartella e' un pacchetto esercizio:
     con `KUBECONFIG` gia' puntato al vcluster (admin). Applica manifest k8s.
   - **linux** (`lab_env=linux`): gira DENTRO il Pod esercizio (`ubuntu:26.04` di
     default), ambiente Linux puro, NIENTE `KUBECONFIG`. Prepara file/tool/scenario.
+  - **docker** (`lab_env=docker`): gira DENTRO il Pod esercizio (`docker:dind-rootless`),
+    DOPO che dockerd rootless e' pronto. Usa comandi `docker` (tipicamente `pull`
+    per pre-scaldare le immagini). NIENTE `KUBECONFIG`. Serve egress verso il registry.
 - `manifests/` -- YAML applicati da `setup.sh` (opzionale, lab k8s).
+- `Dockerfile`/`docker-compose.yml` -- build/scenario del lab docker (opzionale).
 - `sizing.yaml` -- `cpu`/`memory` e opzionale `image` del Pod (opzionale).
 - `task.md` -- consegna per lo studente (opzionale).
 
@@ -27,6 +31,8 @@ Ogni cartella e' un pacchetto esercizio:
   il lab parte con tutto gia' su.
 - [`linux-demo/`](linux-demo/) -- (lab linux) ambiente `ubuntu:26.04` minimale; il
   terminale mostra una consegna demo (crea un file). Base per esercizi Linux.
+- [`docker-demo/`](docker-demo/) -- (lab docker) dockerd rootless gia' caldo con le
+  immagini base pre-scaricate; consegna demo (run nginx + build di un'immagine alpine).
 
 ## Come si aggancia
 
